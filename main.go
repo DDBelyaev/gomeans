@@ -28,4 +28,5 @@ func main() {
 
 	elapsed := time.Since(start)
 	fmt.Printf("%s time took\n", elapsed)
+	fmt.Println("THIS IS JUST KEK TO CHECK IF GIT REMAPS WORK")
 }
