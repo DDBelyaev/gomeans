@@ -59,19 +59,19 @@ func array_equal_int(arr1, arr2 []int) bool {
 	return true
 }
 
-func init_centroids(data *[][]float64, k int) (map[int][]float64, error) {
+func init_centroids(data [][]float64, k int) (map[int][]float64, error) {
 	centroids := make(map[int][]float64, k)
 
-	if len(*data) < k {
+	if len(data) < k {
 		return centroids, errors.New("NOT ENOUGH DATA")
 	}
 
 	for i := 0; i < k; i++ {
-		centroids[i] = (*data)[rand.Intn(len(*data))]
+		centroids[i] = data[rand.Intn(len(data))]
 		for j := 0; j < i; j++ {
 			fmt.Printf("%v, %v\n", i, j)
 			if cmp.Equal(centroids[i], centroids[j]) {
-				centroids[i] = (*data)[rand.Intn(len(*data))]
+				centroids[i] = data[rand.Intn(len(data))]
 				j = -1
 			}
 		}
@@ -99,11 +99,11 @@ func array_mean(aoa [][]float64) ([]float64, error) {
 	return arr, nil
 }
 
-func calculate_clusters(centroids map[int][]float64, data *[][]float64) []int {
-	clusters := make([]int, len(*data))
+func calculate_clusters(centroids map[int][]float64, data [][]float64) []int {
+	clusters := make([]int, len(data))
 	var wg sync.WaitGroup
-	wg.Add(len(*data))
-	for i, row := range *data {
+	wg.Add(len(data))
+	for i, row := range data {
 		// THIS IS IT :D
 		go func(i int, row []float64) {
 			defer wg.Done()
@@ -128,14 +128,14 @@ func calculate_clusters(centroids map[int][]float64, data *[][]float64) []int {
 	return clusters
 }
 
-func calculate_centroids(data *[][]float64, clusters []int, k int) map[int][]float64 {
+func calculate_centroids(data [][]float64, clusters []int, k int) map[int][]float64 {
 	centroids := make(map[int][]float64, k)
 
 	for i := 0; i < k; i++ {
 		var aoa [][]float64
 		for j := 0; j < len(clusters); j++ {
 			if clusters[j] == i {
-				aoa = append(aoa, (*data)[j])
+				aoa = append(aoa, data[j])
 			}
 		}
 
@@ -145,7 +145,7 @@ func calculate_centroids(data *[][]float64, clusters []int, k int) map[int][]flo
 	return centroids
 }
 
-func (km *KMeans) Fit(data *[][]float64) {
+func (km *KMeans) Fit(data [][]float64) {
 	centroids, _ := init_centroids(data, km.K)
 	clusters := calculate_clusters(centroids, data)
 	var old_clusters []int

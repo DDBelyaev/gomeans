@@ -24,7 +24,7 @@ func main() {
 
 	start := time.Now()
 
-	km.Fit(&data)
+	km.Fit(data)
 
 	elapsed := time.Since(start)
 	fmt.Printf("%s time took\n", elapsed)
