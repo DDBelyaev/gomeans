@@ -9,10 +9,10 @@ import (
 
 func main() {
 
-	km := kmeans.KMeans{K: 20, Iter: 50, Centroids: map[int][]float64{}}
+	km := kmeans.KMeans{K: 10, Iter: 500, Centroids: map[int][]float64{}}
 
-	var rows int = 55000
-	var columns int = 50
+	var rows int = 5500
+	var columns int = 20
 
 	var data [][]float64 = make([][]float64, rows)
 
@@ -28,5 +28,4 @@ func main() {
 
 	elapsed := time.Since(start)
 	fmt.Printf("%s time took\n", elapsed)
-	fmt.Println("THIS IS JUST KEK TO CHECK IF GIT REMAPS WORK")
 }
