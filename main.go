@@ -9,9 +9,9 @@ import (
 
 func main() {
 
-	km := kmeans.KMeans{K: 20, Iter: 500, Centroids: map[int][]float64{}}
+	km := kmeans.KMeans{K: 20, Iter: 50, Centroids: map[int][]float64{}}
 
-	var rows int = 5500
+	var rows int = 55000
 	var columns int = 50
 
 	var data [][]float64 = make([][]float64, rows)
@@ -24,7 +24,7 @@ func main() {
 
 	start := time.Now()
 
-	km.Fit(data)
+	km.Fit(&data)
 
 	elapsed := time.Since(start)
 	fmt.Printf("%s time took\n", elapsed)
